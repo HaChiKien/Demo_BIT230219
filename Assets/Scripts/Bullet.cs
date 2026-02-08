@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-public float flySpeed;
+    public float flySpeed;
+    public int damage;
+    private Rigidbody2D rb;
 
-// Update is called once per frame
-void Update()
-{
-var newPosition = transform.position;
-newPosition.y += Time.deltaTime * flySpeed;
-transform.position = newPosition;
-}
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        // Di chuyển viên đạn theo trục Y
+        rb.velocity = transform.up * flySpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var enemy = collision.GetComponent<EnemyHealth>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+        }
+        Destroy(gameObject);
+    }
 }

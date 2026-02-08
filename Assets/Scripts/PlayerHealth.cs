@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class EnemyHealth : Health
+public class PlayerHealth : Health
 {
     public Animator animator;
 
@@ -19,13 +18,7 @@ public class EnemyHealth : Health
         {
             Debug.LogError("Animator is not assigned in the Inspector!");
         }
+        Debug.Log("Game Over!");
         Destroy(gameObject, 1f); // 1f = thời gian animation nổ
-    }
-    void Update()
-    {
-        if (animator != null && animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyExplosion"))
-        {
-            Debug.Log("EnemyExplosion animation is playing.");
-        }
     }
 }
