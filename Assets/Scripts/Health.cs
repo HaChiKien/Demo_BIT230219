@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public GameObject explosionPrefab;
     public int defaultHealthPoint = 100;
+    public System.Action onDead;
     protected int healthPoint;
 
     protected virtual void Start()
@@ -24,6 +26,12 @@ public class Health : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (explosionPrefab != null)
+        {
+            var explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+            Destroy(explosion, 1f);
+        }
         Destroy(gameObject);
+        onDead?.Invoke();
     }
 }

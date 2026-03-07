@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class EnemyHealth : Health
 {
     public Animator animator;
 
+    public static int LivingEnemyCount;
+
+    private void Awake()
+    {
+        LivingEnemyCount++;
+    }
+
     protected override void Die()
     {
+        LivingEnemyCount--;
         Debug.Log("Die() called");
         if (animator != null)
         {
